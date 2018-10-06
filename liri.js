@@ -127,6 +127,7 @@ function concertThis(){
   })
 }
 
+// <<<<<<<<<<< MOVIE THIS FUNCTION >>>>>>>>>>>>>
 function movieThis() {
   inquirer.prompt ([
     {
@@ -166,45 +167,3 @@ function movieThis() {
       })
   })
 }
-
-// // Create a controller that does the operation asked of it by searching the argument
-// doOperation(operation, argument)
-
-// function doOperation(operation, argument) {
-//   argument = getArgument();
-// }
-
-
-
-
-// // Store all of the arguments in an array
-// var nodeArgs = process.argv;
-
-// // Create an empty variable for holding the movie name
-// var movieName = "";
-
-// // Loop through all the words in the node argument
-// // And do a little for-loop magic to handle the inclusion of "+"s
-// for (var i = 2; i < process.argv.length; i++) {
-//   if (i > 2 && i < process.argv.length) {
-//     movieName = movieName + " " + process.argv[i];
-//   }
-//   else {
-//     movieName += process.argv[i];
-//   }
-// }
-
-// // Then run a request to the OMDB API with the movie specified
-// var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
-
-// // This line is just to help us debug against the actual URL.
-// console.log("QueryURL: " + queryUrl);
-
-// axios.get(queryUrl).then(
-//   function(response) {
-//     console.log("Title: " + response.data.Title);
-//     console.log("Release Year: " + response.data.Year);
-//     console.log("Release Year: " + response.data.Rated);
-//     console.log("Release Year: " + response.data.Runtime);
-//   }
-// )
