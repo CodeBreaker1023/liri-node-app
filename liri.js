@@ -57,6 +57,8 @@ switch (runOperation) {
     // Create function that performs action listed in log.txt
     doWhatItSays();
   break;
+
+  default: console.log("\n" + "type any command after node liri.js:" + "\n" + "spotify-this" + "\n" + "concert-this" + "\n" + "movie-this" + "\n" + "do-what-it-says" + "\n" + "Use quotes for mutli-word titles");
   }
 } 
 
