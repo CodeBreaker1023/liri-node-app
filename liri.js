@@ -1,7 +1,7 @@
 // L I R I - N O D E - A P P //
 // User the node commands below to get LIRI to look things up for you
 // Your input should look something like this if you want to access OMDb: $ node liri.js movie-this
-// 1. Search Spotify = spotify-this
+// 1. Search Spotify = spotify-this + (song title)
 // 2. Search Bandsintown = concert-this
 // 3. Search OMDb = movie-this
 // 4. do-what-it-says
@@ -58,81 +58,48 @@ switch (runOperation) {
     doWhatItSays();
   break;
 
-  default: console.log("\n" + "type any command after node liri.js:" + "\n" + "spotify-this" + "\n" + "concert-this" + "\n" + "movie-this" + "\n" + "do-what-it-says" + "\n" + "Use quotes for mutli-word titles");
+  default: console.log("\n" + "type any command after node liri.js:" + "\n" + "spotify-this + (song title)" + "\n" + "concert-this" + "\n" + "movie-this" + "\n" + "do-what-it-says" + "\n" + "Use quotes for mutli-word titles");
   }
 } 
 
+// <<<<<<<<<<< SPOTIFY THIS FUNCTION >>>>>>>>>>>>
 
-//Calls spotify API to retrieve the song information for songTitle
-function spotifyThis(songTitle) {
-//sets spotify equal to the key info to call the spotify API
+function spotifyThis(trackName) {
+// Call the spotify API by setting variable = key
 var spotify = new Spotify(SpotifyKeys.spotify);
-
-inquirer.prompt ([
-  {
-    type: "input",
-    message: "Please type the song you would like LIRI to look up:",
-    name: "song"
+var trackName = process.argv[3];
+if (!trackName) {
+  trackName = "Three Little Birds"
+};
+songRequest = trackName;
+spotify.search(
+  { 
+    type: 'track', 
+    query: songRequest
+  }, 
+    function(err, data) {
+      if (!err) {
+        var trackInfo = data.tracks.items;
+        for (var i=0; i < 5; i++) {
+          if (trackInfo[i] != undefined) {
+            var spotifyResults = 
+            "Artist: " + trackInfo[i].artists[0].name + "\n" +
+            "Song: " + trackInfo[i].name + "\n" +
+            "Album: " + trackInfo[i].album.name + "\n"
+          
+          console.log(spotifyResults);
+          console.log(' ');
+          };
+        };
+      } else {
+        console.log("error: " + err);
+        return;
+      };
+    });
   }
-
-// spotify.search(
-//       { 
-//         type: 'track', 
-//         query: songTitle
-//       })
       
-    .then(function(response) {
+// <<<<<<<<<<< CONCERT THIS FUNCTION >>>>>>>>>>>>
 
-    // //Default search on the spotify API returns 20 objects
-    // //Going to attempt to find documentation regarding limit on npm later to render this solution unneeded
-    // var artistsArray = response.tracks.items[0].album.artists;
-    
-    // //Array to hold artists names, for songs that return multiple artists
-    // var artistNames = [];
-    
-    // //Goes down the length of the array and pushes the artists names for each song
-    // for (var i = 0; i < artistsArray.length; i++) {
-    //   artistNames.push(artistsArray[i].name);
-    // }
-
-    // //Converts the array into a string
-    // var artists = artistNames.join(", ");
-    
-    //Console.logs the response from the Spotify API for Artist, Song title, URL, and Album name
-    console.log("Command: spotify-this-song " + response.tracks.items[0].name);
-    console.log("Artist: " + artists);
-    console.log("Song: " + response.tracks.items[0].name);
-    console.log("Spotify preview URL: " + response.tracks.items[0].preview_url);
-    console.log("Album name: " + response.tracks.items[0].album.name);
-    console.log("------------");
-  })
-    .catch(function(err) {
-    //console.logs any caught errors
-    console.log(err);
-    console.log(err);
-  })
-}
-
-//searches the spotify API by track name 
-spotify.request( 'https://api.spotify.com/v1/tracks/3DYVWvPh3kGwPasp7yjahc' )
-  .then(function(response) {
-    //Console.logs the response from the Spotify API for Artist, Song title, URL, and Album name
-    console.log("Command: spotify-this-song " + response.name);
-    console.log("Artist: " + response.artists[0].name);
-    console.log("Song: " + response.name);
-    console.log("Spotify preview URL: " + response.preview_url);
-    console.log("Album name: " + response.album.name);
-    console.log("------------");
-  })
-  .catch(function(err) {
-    //console.logs any caught errors
-    console.log(err);
-    console.log(err);
-  });
-}
-
-//concert-this
-//-------------------
 function concertThis(){
   inquirer.prompt ([
     {
@@ -197,8 +164,8 @@ function movieThis() {
         // Console.log any errors 
         console.log(error);
       })
-    })
-  }
+  })
+}
 
 // // Create a controller that does the operation asked of it by searching the argument
 // doOperation(operation, argument)
