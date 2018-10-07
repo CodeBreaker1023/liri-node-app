@@ -3,6 +3,7 @@
 LIRI Bot is a Language Interpretation and Recognition Interface. It's a command line node app that takes in parameters and gives back the requested data. LIRI will search for Spotify songs, Bands in Town for concerts, and OMDB for movies. Watch and be amazed!
 
 
+///////////////////////////////////////////////////////////////////////////////////
 VERIFICATION OF FUNCTIONING APP
 
 <<<< movie-this >>>>
@@ -19,7 +20,9 @@ Country USA, UK
 Language English
 Plot A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.
 Actors Russell Crowe, Joaquin Phoenix, Connie Nielsen, Oliver Reed
+///////////////////////////////////////////////////////////////////////////////////////
 
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 <<<< spotify-this >>>> (single word song)
 ----------------------------------------
 $ node liri.js spotify-this Amerimacka
@@ -71,3 +74,21 @@ Album: Please Please Me (Remastered)
 Artist: Ellie Goulding
 Song: Love Me Like You Do - From "Fifty Shades Of Grey"
 Album: Fifty Shades Of Grey (Original Motion Picture Soundtrack)
+//////////////////////////////////////////////////////////////////////////////////////
+
+<<<< CONCERT THIS >>>>
+----------------------
+$ node liri.js concert-this Metallica
+This is loaded
+Venue: Zilker Metropolitan Park
+City: Austin, TX
+Event Date: 2018-10-06T11:00:00
+------------
+Venue: Zilker Metropolitan Park
+City: Austin, TX
+Event Date: 2018-10-13T11:00:00
+------------
+Venue: Fiserv Forum
+City: Milwaukee, WI
+Event Date: 2018-10-16T19:30:00
+------------

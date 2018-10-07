@@ -2,7 +2,7 @@
 // User the node commands below to get LIRI to look things up for you
 // Your input should look something like this if you want to access OMDb: $ node liri.js movie-this
 // 1. Search Spotify = spotify-this + (song title)
-// 2. Search Bandsintown = concert-this
+// 2. Search Bandsintown = concert-this + (artist/band)
 // 3. Search OMDb = movie-this
 // 4. do-what-it-says
 
@@ -67,9 +67,10 @@ switch (runOperation) {
 function spotifyThis(trackName) {
 // Call the spotify API by setting variable = key
 var spotify = new Spotify(SpotifyKeys.spotify);
+// Assign song input to track name
 var trackName = process.argv[3];
 if (!trackName) {
-  trackName = "Three Little Birds"
+  trackName = "I Want It That Way"
 };
 songRequest = trackName;
 spotify.search(
@@ -101,19 +102,13 @@ spotify.search(
 // <<<<<<<<<<< CONCERT THIS FUNCTION >>>>>>>>>>>>
 
 function concertThis(){
-  inquirer.prompt ([
-    {
-      type: "input",
-      message: "Please type the Artist or Band for LIRI to look up their tour dates and venues:",
-      name: "concert"
-    }
-  ]).then(function (inquirerResponse) {
     // Calls Bandsintown API to look for concert dates
-    axios.get("https://rest.bandsintown.com/artists/" + inquirerResponse + "/events?app_id=codingbootcamp")
+    var queryURL = "https://rest.bandsintown.com/artists/" + process.argv[3] + "/events?app_id=ea94f426-4fab-4bb1-b6ba-bd86821d522f"
+    axios.get(queryURL)
     .then(function (response) {
       // // Create a for loop that iterates the response.data
       for (var i = 0; i < 3; i++) {
-      //Logs the command used, venue name, location and date of the show for the artist name
+      // Console log the venue name, location and date of concert
       console.log("Venue: " + response.data[i].venue.name);
       console.log("City: " + response.data[i].venue.city + ', ' + response.data[i].venue.region);
       console.log("Event Date: " + response.data[i].datetime);
@@ -124,8 +119,8 @@ function concertThis(){
       // Console.log any errors 
       console.log(error);
     })
-  })
-}
+  }
+
 
 // <<<<<<<<<<< MOVIE THIS FUNCTION >>>>>>>>>>>>>
 function movieThis() {
