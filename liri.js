@@ -15,7 +15,6 @@ require('dotenv').config()
 // Require node module for Spotify API
 var Spotify = require('node-spotify-api');
 var SpotifyKeys = require('./keys.js');
-// var spotify = new Spotify(keys.spotify);
 
 ///////// AXIOS - BAND-IN-TOWN && OMDB ///////////////
 // Get axios npm package 
@@ -69,16 +68,20 @@ function spotifyThis(trackName) {
 var spotify = new Spotify(SpotifyKeys.spotify);
 // Assign song input to track name
 var trackName = process.argv[3];
+// If no song selected, assign trackname to BSB - I Want It That Way as indicated
 if (!trackName) {
   trackName = "I Want It That Way"
 };
+// Assign request to trackname
 songRequest = trackName;
+// Search Spotify with type and query
 spotify.search(
   { 
     type: 'track', 
     query: songRequest
   }, 
     function(err, data) {
+      // If no err, for loop through trackInfo + arist name/name/album name
       if (!err) {
         var trackInfo = data.tracks.items;
         for (var i=0; i < 5; i++) {
@@ -88,11 +91,13 @@ spotify.search(
             "Song: " + trackInfo[i].name + "\n" +
             "Album: " + trackInfo[i].album.name + "\n"
           
+          // Console log results
           console.log(spotifyResults);
           console.log(' ');
           };
         };
       } else {
+        // Console.log if any errors
         console.log("error: " + err);
         return;
       };
@@ -106,7 +111,7 @@ function concertThis(){
     var queryURL = "https://rest.bandsintown.com/artists/" + process.argv[3] + "/events?app_id=ea94f426-4fab-4bb1-b6ba-bd86821d522f"
     axios.get(queryURL)
     .then(function (response) {
-      // // Create a for loop that iterates the response.data
+      // Create a for loop that iterates the response.data
       for (var i = 0; i < 3; i++) {
       // Console log the venue name, location and date of concert
       console.log("Venue: " + response.data[i].venue.name);
