@@ -4,7 +4,7 @@
   "description": "LIRI Bot is a Language Interpretation and Recognition Interface. It's a command line node app that takes in parameters and gives back the requested data. LIRI will search for Spotify songs, Bands in Town for concerts, and OMDB for movies. Watch and be amazed!",
   "main": "keys.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "inquirer": "^6.2.0",
     "moment": "^2.22.2",
     "node-spotify-api": "^1.0.7"

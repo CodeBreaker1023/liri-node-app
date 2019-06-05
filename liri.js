@@ -111,18 +111,21 @@ function concertThis(){
     var queryURL = "https://rest.bandsintown.com/artists/" + process.argv[3] + "/events?app_id=ea94f426-4fab-4bb1-b6ba-bd86821d522f"
     axios.get(queryURL)
     .then(function (response) {
-      // Create a for loop that iterates the response.data
-      for (var i = 0; i < 3; i++) {
-      // Console log the venue name, location and date of concert
-      console.log("Venue: " + response.data[i].venue.name);
-      console.log("City: " + response.data[i].venue.city + ', ' + response.data[i].venue.region);
-      console.log("Event Date: " + response.data[i].datetime);
-      console.log("------------");
-      }
+      if(response != "undefined")
+        // Create a for loop that iterates the response.data
+        for (var i = 0; i < response.data.length; i++) {
+        // Console log the venue name, location and date of concert
+        console.log("Venue: " + response.data[i].venue.name);
+        console.log("City: " + response.data[i].venue.city + ', ' + response.data[i].venue.region);
+        console.log("Event Date: " + response.data[i].datetime);
+        console.log("------------");
+        } else {
+          console.log("0 results. Please try again.");
+        }
     })
     .catch(function(error) {
       // Console.log any errors 
-      console.log(error);
+      console.log("0 results. Please try again.");
     })
   }
 
